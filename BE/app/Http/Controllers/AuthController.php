@@ -5,16 +5,19 @@ namespace App\Http\Controllers;
 use App\Exceptions\ErrorException;
 use App\Services\AuthService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class AuthController extends Controller
 {
     public function login(Request $request)
     {
         try {
+
             $user = AuthService::signIn($request->all());
             return response()->json([
-                'token' => $user
+                'data' => $user
             ]);
+
         } catch (ErrorException $e) {
 
             if ($e->type == 'assoc') {
@@ -28,5 +31,13 @@ class AuthController extends Controller
             ], $e->getCode());
 
         }
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+        return response()->json([
+            'message' => 'Token has been deleted'
+        ]);
     }
 }

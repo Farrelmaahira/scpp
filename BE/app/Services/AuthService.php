@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Exceptions\ErrorException;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthService {
@@ -25,5 +26,17 @@ class AuthService {
             throw new ErrorException('string', 'Username does not exist', 401);
         }
 
+        if(!Hash::check($payload['password'], $user->password)) {
+            throw new ErrorException('string', 'Password not match', 401);
+        }
+
+        $token = $user->createToken(env('TOKEN', 'scpp-token'))->plainTextToken;
+
+        $body = [
+            'user' => $user,
+            'token' => $token
+        ];
+
+        return $body;
     }
 }
