@@ -8,7 +8,9 @@ const DashboardLayout = (props) => {
       <Sidebar></Sidebar>
       <div className="relative overflow-y-auto overflow-x-hidden w-full h-screen flex flex-col flex-1">
         <Navbar></Navbar>
-        {children}
+        <div className="overflow-y-auto">
+          {children}
+        </div>
       </div>
     </div>
   );

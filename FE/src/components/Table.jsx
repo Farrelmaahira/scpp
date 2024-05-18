@@ -1,8 +1,8 @@
 const Table = () => {
   return (
     <>
-      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 mx-auto">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <table className="w-full text-sm text-left rtl:text-right text-gray-500 mx-auto">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
           <tr>
             <th scope="col" className="px-6 py-3">
               Product name
@@ -22,10 +22,10 @@ const Table = () => {
           </tr>
         </thead>
         <tbody>
-          <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+          <tr className="odd:bg-white even:bg-gray-50">
             <th
               scope="row"
-              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
             >
               Apple MacBook Pro 17"
             </th>

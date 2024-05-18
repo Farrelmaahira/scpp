@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      backgroundColor : {
+        'primary' : '#FF9F66'
+      },
       width : {
         '3/8' : '95%'
       }
