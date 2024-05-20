@@ -17,14 +17,14 @@ class OrderRepository
     public static function create($payload)
     {
         $data = Order::create([
-            'customer_id' => Str::uuid(),
-            'customer' => $payload['customer'],
-            'invoice_address' => $payload['invoice_address'],
-            'address' => $payload['address'],
-            'transaction' => $payload['transaction'],
-            'sales_type' => $payload['sales_type'],
-            'order_date' => $payload['order_date'],
-            'payment' => $payload['payment']
+            'mitra_id' => $payload['mitra_id'],
+            'invoice_address' => '1234',
+            'jenis_transaksi' => $payload['jenis_transaksi'],
+            'jenis_penjualan' => $payload['jenis_penjualan'],
+            'tanggal_order' => $payload['tanggal_order'],
+            'pembayaran' => $payload['cara_pembayaran'],
+            'rekening_tujuan' => $payload['rekening_tujuan'],
+            'total' => $payload['total']
         ]);
 
         return $data;

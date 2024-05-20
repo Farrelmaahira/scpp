@@ -12,15 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            
-            $table->uuid('customer_id')->primary();
-            $table->string('customer');
+            $table->id();
+            $table->foreignId('mitra_id')->constrained();
             $table->string('invoice_address');
-            $table->string('address');
-            $table->enum('transaction', ['PSO']);
-            $table->string('sales_type');
-            $table->date('order_date');
-            $table->enum('payment', ['Transfer', 'Tunai']);
+            $table->enum('jenis_transaksi', ['PSO']);
+            $table->string('jenis_penjualan');
+            $table->date('tanggal_order');
+            $table->enum('pembayaran', ['Transfer', 'Tunai']);
+            $table->integer('rekening_tujuan');
+            $table->integer('total')->nullable();
             $table->timestamps();
         });
     }

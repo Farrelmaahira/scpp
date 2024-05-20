@@ -13,15 +13,14 @@ return new class extends Migration
     {
         Schema::create('order_details', function (Blueprint $table) {
             $table->id();
-            $table->string('product');
-            $table->string('type');
-            $table->string('description');
-            $table->string('warehouse');
-            $table->integer('order_quantity');
-            $table->string('unit');
-            $table->decimal('quantity');
-            $table->integer('total');
-            $table->foreignUuid('order_id')->references('customer_id')->on('orders')->onDelete('cascade');
+            $table->string('produk');
+            $table->string('tipe');
+            $table->string('gudang');
+            $table->integer('jumlah_pesanan');
+            $table->string('kuantitas');
+            $table->integer('harga');
+            $table->integer('subtotal');
+            $table->foreignId('order_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

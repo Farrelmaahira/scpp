@@ -1,9 +1,29 @@
 import DashboardLayout from "../../layouts/DashboardLayout";
 import Table from "../../components/Table";
 import Button from "../../components/Button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 const Order = () => {
+  const [data, setData] = useState([])
+  const [err, setErr] = useState('')
+  const url = import.meta.env.VITE_BASE_APP_URL
+
+  const fetchAPI = async () => {
+    try {
+      const response = await axios.get(`${url}/api/orders`)
+      return response
+    } catch (error) {
+      throw error
+    }
+  }
+  useEffect(() => {
+    fetchAPI().then(res => {
+      setData(res.data.data)
+    }).catch(err => {
+      setErr(err)
+    })
+  }, [])
   return (
     <>
       <DashboardLayout>
@@ -18,7 +38,7 @@ const Order = () => {
                   Add new order
                 </Button>
               </Link>
-              <Table></Table>
+              <Table data={data}/>
             </div>
           </div>
         </main>

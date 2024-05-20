@@ -32,11 +32,6 @@ class AuthService {
 
         $token = $user->createToken(env('TOKEN', 'scpp-token'))->plainTextToken;
 
-        $body = [
-            'user' => $user,
-            'token' => $token
-        ];
-
-        return $body;
+        return $token;
     }
 }

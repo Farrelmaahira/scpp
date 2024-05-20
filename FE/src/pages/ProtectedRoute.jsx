@@ -5,8 +5,7 @@ import { Outlet } from "react-router-dom";
 const ProtectedRoute = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    console.log(token);
+    const token = sessionStorage.getItem("token");
     if (!token) {
       return navigate("/");
     }

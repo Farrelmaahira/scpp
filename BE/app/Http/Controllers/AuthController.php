@@ -15,7 +15,8 @@ class AuthController extends Controller
 
             $user = AuthService::signIn($request->all());
             return response()->json([
-                'data' => $user
+                'status' => 'success',
+                'token' => $user
             ]);
 
         } catch (ErrorException $e) {

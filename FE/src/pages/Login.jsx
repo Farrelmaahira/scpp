@@ -10,7 +10,7 @@ function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     if (token) {
       return navigate("/dashboard");
     }
@@ -20,10 +20,17 @@ function Login() {
     e.preventDefault();
     const payload = {
       username,
-      password
+      password,
+    };
+    const response = await axios.post(
+      "http://localhost:8000/api/login",
+      payload
+    );
+    if (response.data.status == "success") {
+      const token = response.data.token;
+      sessionStorage.setItem("token", token);
+      return navigate('/dashboard')
     }
-    const response = await axios.post('http://localhost:8000/api/login', payload);
-    console.log(response);
   };
 
   return (
@@ -32,33 +39,11 @@ function Login() {
         <div className="max-w-sm rounded overflow-hidden shadow-lg my-auto bg-white">
           <div className="px-6 py-4">
             <div className="font-bold text-2xl mb-2 text-center">Login</div>
-            <LoginForm onSubmit={handleSubmit} setUname={setUsername} setPass={setPass}/>
-            {/* <form action="" method="post">
-              <Label title="Username" name="username">
-                Username
-              </Label>
-              <Input
-                type="text"
-                name="username"
-                className="rounded w-full border p-1"
-                placeholder="John Doe"
-              ></Input>
-              <Label title="Password" name="pass">
-                Password
-              </Label>
-              <Input
-                type="password"
-                name="password"
-                className="rounded w-full border p-1"
-                placeholder="****"
-              ></Input>
-              <Button
-                type="submit"
-                className="w-full rounded my-3 border p-2 bg-blue-500 text-white hover:bg-blue-900"
-              >
-                Login
-              </Button>
-            </form> */}
+            <LoginForm
+              onSubmit={handleSubmit}
+              setUname={setUsername}
+              setPass={setPass}
+            />
           </div>
         </div>
       </div>

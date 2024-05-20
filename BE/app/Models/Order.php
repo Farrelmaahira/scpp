@@ -7,25 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory;
 
-    protected $primaryKey = 'customer_id';
-    protected $keyType = 'string';
-    public $incrementing = false;
-
-    protected $fillable = [
-        'customer_id',
-        'customer',
-        'invoice_address',
-        'address',
-        'transaction',
-        'sales_type',
-        'order_date',
-        'payment'
-    ];
+    protected $guarded = [];
 
     public function orderDetail()
     {
-        return $this->hasMany(OrderDetail::class, 'order_id', 'customer_id');
+        return $this->hasMany(OrderDetail::class, 'order_id', 'id');
+    }
+
+    public function mitra()
+    {
+        return $this->belongsTo(Mitra::class, 'mitra_id');
     }
 }

@@ -17,28 +17,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
-
-Route::controller(AuthController::class)->group(function(){
+Route::controller(AuthController::class)->group(function () {
     Route::post('/login', 'login');
     Route::get('/logout', 'logout')->middleware('auth:sanctum');
 });
 
-Route::controller(OrderController::class)->group(function(){
+Route::controller(OrderController::class)->group(function () {
     Route::get('/orders', 'index');
     Route::post('/order', 'store');
-    Route::put('/order/{id}', 'update');
     Route::delete('/order/{id}', 'destroy');
     Route::get('/order/{id}', 'show');
-});
-
-Route::controller(OrderDetailController::class)->group(function(){
-    Route::get('/order_details', 'index');
-    Route::post('/order_detail', 'store');
-    Route::get('/order_detail/{id}', 'show');
-    Route::put('/order_detail/{id}', 'update');
-    Route::delete('/order_detail/{id}', 'destroy');
 });

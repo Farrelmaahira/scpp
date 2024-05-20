@@ -15,15 +15,17 @@ class OrderResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'customer_id' => $this->customer_id,
-            'customer' => $this->customer,
+            'id' => $this->id,
+            'mitra_id' => $this->mitra_id,
             'invoice_address' => $this->invoice_address,
-            "address" => $this->address,
-            "transaction" => $this->transaction,
-            "sales_type" => $this->sales_type, 
-            "order_date" => $this->order_date,
-            "payment" => $this->payment,
-            "order_detail" => $this->orderDetail
+            "jenis_transaksi" => $this->jenis_transaksi,
+            "jenis_penjualan" => $this->jenis_penjualan,
+            "tanggal_order" => $this->tanggal_order, 
+            "pembayaran" => $this->pembayaran,
+            "rekening_tujuan" => $this->rekening_tujuan,
+            "total" => $this->total,
+            "order_detail" => $this->orderDetail,
+            "mitra" => $this->mitra
         ];
     }
 }

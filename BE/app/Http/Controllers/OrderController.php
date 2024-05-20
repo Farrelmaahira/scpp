@@ -12,13 +12,14 @@ class OrderController extends Controller
     public function index()
     {
         try {
-
             $order = OrderService::getData();
             return response()->json([
+                'status' => 'success',
                 'data' => OrderResource::collection($order)
             ]);
         } catch (ErrorException $e) {
             return response()->json([
+                'status' => 'invalid',
                 'message' => $e->getMessage()
             ], $e->getCode());
         }
@@ -32,7 +33,8 @@ class OrderController extends Controller
         try {
             $order = OrderService::storeData($request->all());
             return response()->json([
-                'data' => $order
+                'status' => 'success',
+                "data" => new OrderResource($order)
             ]);
         } catch (ErrorException $e) {
             return response()->json([

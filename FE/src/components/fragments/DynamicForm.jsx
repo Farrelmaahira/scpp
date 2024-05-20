@@ -1,46 +1,87 @@
 import Input from "../Input";
 import { useState, useEffect } from "react";
 import Button from "../Button";
+import { Trash } from "react-feather";
 
-const DynamicForm = () => {
+const DynamicForm = (props) => {
+  const { setOrderItems } = props;
+
   const [items, setItems] = useState([
     {
       produk: "",
-      tipe: "",
+      tipe: "Produk Stok",
       gudang: "",
       jumlah_pesanan: "",
       kuantitas: "",
       harga: "",
-      pajak: "",
       subtotal: "",
     },
   ]);
 
   useEffect(() => {
-    let subtotal = document.getElementById("subtotal");
-    subtotal.value = "50kg";
-  }, []);
+    setOrderItems(items)
+  }, [items])
 
-  const handleProduct = (fieldName, value, index) => {
-    const fields = [...items];
-    fields[index][fieldName] = value;
-    setItems(fields);
+  const updateItems = (index, key, value) => {
+    const kuantitas = document.getElementById(`kuantitas-${index}`);
+    const subtotalElement = document.getElementById(`subtotal-${index}`);
+    setItems((prevItems) => {
+      const newItems = [...prevItems];
+      newItems[index][key] = value;
+
+      // Update kuantitas and subtotal based on the new values
+      if (key === "produk") {
+        if (value === "1") {
+          let finalValue = "5kg";
+          newItems[index]["kuantitas"] = finalValue;
+          newItems[index]["produk"] =
+            "Beras Medium Vietnam 5% Logo SPGP 5kg PSO LN";
+          kuantitas.value = finalValue;
+        } else if (value === "2") {
+          let finalValue = "50kg";
+          newItems[index]["kuantitas"] = finalValue;
+          newItems[index]["produk"] =
+            "Beras Medium Vietnam 5% Logo SPGP 50kg PSO LN";
+          kuantitas.value = finalValue;
+        }
+      } else if (key === "jumlah_pesanan" || key === "harga") {
+        const jumlahPesanan = newItems[index]["jumlah_pesanan"] || 0;
+        const harga = newItems[index]["harga"] || 0;
+        const subtotal = jumlahPesanan * harga;
+        newItems[index]["subtotal"] = subtotal
+        subtotalElement.value = subtotal.toLocaleString(
+          "id-ID",
+          {
+            style: "currency",
+            currency: "IDR",
+          }
+        );
+      }
+      return newItems;
+    });
   };
 
   const handleAddItem = () => {
-    const values = [...items];
-    values.push({
-      produk: "",
-      tipe: "",
-      gudang: "",
-      jumlah_pesanan: "",
-      kuantitas: "",
-      harga: "",
-      pajak: "",
-      subtotal: "",
-    });
-    setItems(values);
+    setItems((prevItems) => [
+      ...prevItems,
+      {
+        produk: "",
+        tipe: "Produk Stok",
+        gudang: "",
+        jumlah_pesanan: "",
+        kuantitas: "",
+        harga: "",
+        subtotal: "",
+      },
+    ]);
   };
+
+  const handleDeleteItem = (index) => {
+    const newItems = [...items]
+    newItems.splice(index, 1)
+    setItems(newItems)
+  }
+
 
   return (
     <>
@@ -54,83 +95,111 @@ const DynamicForm = () => {
               <td>Jumlah Pesanan</td>
               <td>Kuantitas / Kuantum</td>
               <td>Harga Satuan</td>
-              <td>Pajak</td>
               <td>Subtotal</td>
             </tr>
           </thead>
           <tbody>
-            {items.map((item, index) => {
-              return (
-                <tr key={index} className="bg-grey-50">
-                  <td>
-                    <select
-                      name="produk"
-                      id=""
-                      className="w-36"
-                      onChange={(e) =>
-                        handleProduct(e.target.name, e.target.value, index)
-                      }
-                    >
-                      <option value=""></option>
-                      <option value=" Beras Medium Vietnam 5% Logo SPGP 5kg PSO LN">
-                        Beras Medium Vietnam 5% Logo SPGP 5kg PSO LN
-                      </option>
-                      <option value="Beras Medium Vietnam 5% Logo SPGP 50kg PSO LN">
-                        Beras Medium Vietnam 5% Logo SPGP 50kg PSO LN
-                      </option>
-                    </select>
-                  </td>
-                  <td>
-                    <select name="" id="">
-                      <option value="">Produk Stok</option>
-                    </select>
-                  </td>
-                  <td>
-                    <select name="" id="" className="w-36">
-                      <option value="">
-                        Gudang Kanwil Maluku Malut, Kompleks Pergudangan
-                        Nusaniwe
-                      </option>
-                      <option value="">
-                        Gudang Kanwil Maluku Malut, Kompleks Pergudangan Tulehu
-                      </option>
-                      <option value="">
-                        Gudang Kanwil Maluku Malut, Kompleks Pergudangan Halong
-                      </option>
-                    </select>
-                  </td>
-                  <td>
-                    <Input
-                      onChange={(e) => handleChange(e.target.value, index)}
-                    />
-                  </td>
-                  <td>
-                    <Input type="text" />
-                  </td>
-                  <td>
-                    <Input type="text" />
-                  </td>
-                  <td>
-                    <p>11%</p>
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      disabled
-                      className="border bg-white"
-                      id="subtotal"
-                    />
-                  </td>
-                </tr>
-              );
-            })}
+            {items.map((item, index) => (
+              <tr key={index} className="bg-grey-50">
+                <td>
+                  <select
+                    name="produk"
+                    className="w-36"
+                    onChange={(e) =>
+                      updateItems(index, "produk", e.target.value)
+                    }
+                    value={item.produk}
+                  >
+                    <option value="" disabled>
+                      Select
+                    </option>
+                    <option value="1">
+                      Beras Medium Vietnam 5% Logo SPGP 5kg PSO LN
+                    </option>
+                    <option value="2">
+                      Beras Medium Vietnam 5% Logo SPGP 50kg PSO LN
+                    </option>
+                  </select>
+                </td>
+                <td>
+                  <select
+                    name="tipe"
+                    className="w-36"
+                    onChange={(e) => updateItems(index, "tipe", e.target.value)}
+                    value={item.tipe}
+                  >
+                    <option value="">Produk Stok</option>
+                  </select>
+                </td>
+                <td>
+                  <select
+                    name="gudang"
+                    className="w-36"
+                    onChange={(e) =>
+                      updateItems(index, "gudang", e.target.value)
+                    }
+                    value={item.gudang}
+                  >
+                  <option value="" disabled>Select</option>
+                    <option value="Gudang Kanwil Maluku Malut, Kompleks Pergudangan Nusaniwe">
+                      Gudang Kanwil Maluku Malut, Kompleks Pergudangan Nusaniwe
+                    </option>
+                    <option value="Gudang Kanwil Maluku Malut, Kompleks Pergudangan Tulehu">
+                      Gudang Kanwil Maluku Malut, Kompleks Pergudangan Tulehu
+                    </option>
+                    <option value="Gudang Kanwil Maluku Malut, Kompleks Pergudangan Halong">
+                      Gudang Kanwil Maluku Malut, Kompleks Pergudangan Halong
+                    </option>
+                  </select>
+                </td>
+                <td>
+                  <Input
+                    onChange={(e) =>
+                      updateItems(index, "jumlah_pesanan", e.target.value)
+                    }
+                    value={item.jumlah_pesanan}
+                  />
+                </td>
+                <td>
+                  <Input
+                    type="text"
+                    value={item.kuantitas}
+                    readOnly
+                    id={`kuantitas-${index}`}
+                  />
+                </td>
+                <td>
+                  <Input
+                    type="text"
+                    onChange={(e) =>
+                      updateItems(index, "harga", e.target.value)
+                    }
+                    value={item.harga}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    disabled
+                    className="border bg-white"
+                    id={`subtotal-${index}`}
+                    readOnly
+                  />
+                </td>
+                <td>
+                  <Button type="button" onClick={handleDeleteItem}>
+                    <Trash/>
+                  </Button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
-        <Button
-          className="border rounded-md bg-blue-500 p-2 text-white"
-          onClick={handleAddItem}
-        >
-          Tambahkan Item
+        <a onClick={handleAddItem} className="cursor-pointer">
+          Tambah Produk
+        </a>
+        <Button type="submit" className="border rounded-md p-2 bg-blue-500 text-white mx-2" >
+          Simpan Order
         </Button>
       </div>
     </>
