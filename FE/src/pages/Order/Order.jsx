@@ -7,6 +7,7 @@ import axios from "axios";
 const Order = () => {
   const [data, setData] = useState([])
   const [err, setErr] = useState('')
+  const [id, setId] = useState()
   const url = import.meta.env.VITE_BASE_APP_URL
 
   const fetchAPI = async () => {

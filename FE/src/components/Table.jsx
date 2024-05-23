@@ -1,14 +1,16 @@
 import Button from "./Button";
 import Modal from "./Modal";
 import { useEffect, useState } from "react";
+import axios from "axios";
 const Table = (props) => {
   const { data } = props;
   const [ open, setOpen ] = useState(false) 
   const [list, setList] = useState([])
-  const [selectedRow, setSelectedRow] = useState()
+  const [id, setId] = useState()
   const url = import.meta.env.VITE_BASE_APP_URL
 
-  const handleOpen = () => {
+  const handleOpen = (id) => {
+    setId(id)
     setOpen(true)
   }
 
@@ -16,8 +18,10 @@ const Table = (props) => {
     setOpen(false)
   }
 
-  const handleDelete = (id) => {
+  const handleDelete = async () => {
+    const fetchAPI = await axios.delete(`http://localhost:8000/api/order/${id}`)
     console.log(id)
+    console.log(fetchAPI) 
   }
 
   useEffect(()=> {
@@ -57,17 +61,18 @@ const Table = (props) => {
                 </th>
                 <td className="px-6 py-4">{item.jenis_transaksi}</td>
                 <td className="px-6 py-4">{item.jenis_penjualan}</td>
-                <td className="px-6 py-4">{item.tanggal_order}</td>
+                <td className="px-6 py-4">
+                  {item.tanggal_order}</td>
                 <td className="px-6 py-4">{item.pembayaran}</td>
                 <td className="px-6 py-4">
-                  <Button className="rounded-md bg-red-500 text-white p-3" onClick={handleOpen}>Delete</Button>
+                  <Button className="rounded-md bg-red-500 text-white p-3" onClick={() => {handleOpen(item.id)}}>Delete</Button>
                   <Modal open={open} close={handleClose}>
                     <div className="container flex flex-col">
                       <div className="p-3 text-xl text-black">
                         Apa anda yakin ingin menghapus data ini?
                       </div>
                       <div className="p-3 my-2">
-                        <Button className="rounded-md bg-red-500 text-white p-3 mr-2" >
+                        <Button className="rounded-md bg-red-500 text-white p-3 mr-2" onClick={handleDelete}>
                           Delete
                         </Button>
                         <Button className="rounded-md bg-blue-500 text-white p-3" onClick={handleClose}>
