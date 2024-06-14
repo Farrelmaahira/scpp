@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MitraController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\OrderDetailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,18 +17,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-Route::controller(AuthController::class)->group(function () {
-    Route::post('/login', 'login');
-    Route::get('/logout', 'logout')->middleware('auth:sanctum');
+Route::middleware('auth:sanctum')->get('/', function (Request $request) {
+    return response()->json([
+        'user' => $request->user()
+    ]);
 });
 
-Route::controller(OrderController::class)->group(function () {
-    Route::get('/orders', 'index');
-    Route::post('/order', 'store');
-    Route::delete('/order/{id}', 'destroy');
-    Route::get('/order/{id}', 'show');
+Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
+    Route::controller(OrderController::class)->group(function () {
+        Route::get('/orders', 'index');
+        Route::post('/order', 'store');
+        Route::delete('/order/{id}', 'destroy');
+        Route::get('/order/{id}', 'show');
+    });
+
+    Route::controller(MitraController::class)->group(function () {
+        Route::get('/mitra', 'getData');
+    });
+});
+
+Route::controller(AuthController::class)->prefix('v1')->group(function () {
+    Route::post('/login', 'login');
+    Route::get('/logout', 'logout')->middleware('auth:sanctum');
 });

@@ -4,22 +4,32 @@ namespace App\Services;
 
 use App\Repositories\OrderRepository;
 use App\Exceptions\ErrorException;
+use App\Http\Controllers\Controller;
 use App\Repositories\OrderDetailRepository;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
-class OrderService
+class OrderService extends Controller
 {
     public static function getData()
     {
         $data = OrderRepository::get();
-        return $data;
+        $count = $data->count();
+        return [
+            'data' => $data,
+            'count' => $count
+        ];
     }
 
+    public static function trimUUID($uuid) {
+        $trim = explode('-', $uuid);
+        return $trim[0];
+    }
 
     public static function storeData($body)
     {
         $vld = Validator::make($body, [
-            'mitra_id' => 'required|integer',
+            'mitra_id' => 'required|string',
             'jenis_transaksi' => 'required',
             'jenis_penjualan' => 'required',
             'tanggal_order' => 'required|date',
@@ -38,12 +48,16 @@ class OrderService
         if ($vld->fails()) {
             throw new ErrorException('assoc', $vld->messages(), 400);
         }
-        $value = collect($body); 
+        
+        $value = collect($body);
         $orderItem = collect($body['detail_order']);
         $total = 0;
-        foreach($orderItem as $item) {
+
+        foreach ($orderItem as $item) {
             $total += $item['subtotal'];
         }
+        $invoiceAddress = rand(1000, 9999);
+        $value->put('invoice_address', $invoiceAddress);
         $value->put('total', $total);
         $order = OrderRepository::create($value);
         $orderDetailPayload = [

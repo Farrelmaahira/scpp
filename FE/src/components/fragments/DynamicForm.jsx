@@ -19,8 +19,8 @@ const DynamicForm = (props) => {
   ]);
 
   useEffect(() => {
-    setOrderItems(items)
-  }, [items])
+    setOrderItems(items);
+  }, [items]);
 
   const updateItems = (index, key, value) => {
     const kuantitas = document.getElementById(`kuantitas-${index}`);
@@ -48,14 +48,11 @@ const DynamicForm = (props) => {
         const jumlahPesanan = newItems[index]["jumlah_pesanan"] || 0;
         const harga = newItems[index]["harga"] || 0;
         const subtotal = jumlahPesanan * harga;
-        newItems[index]["subtotal"] = subtotal
-        subtotalElement.value = subtotal.toLocaleString(
-          "id-ID",
-          {
-            style: "currency",
-            currency: "IDR",
-          }
-        );
+        newItems[index]["subtotal"] = subtotal;
+        subtotalElement.value = subtotal.toLocaleString("id-ID", {
+          style: "currency",
+          currency: "IDR",
+        });
       }
       return newItems;
     });
@@ -66,7 +63,7 @@ const DynamicForm = (props) => {
       ...prevItems,
       {
         produk: "",
-        tipe: "Produk Stok",
+        tipe: "",
         gudang: "",
         jumlah_pesanan: "",
         kuantitas: "",
@@ -77,11 +74,10 @@ const DynamicForm = (props) => {
   };
 
   const handleDeleteItem = (index) => {
-    const newItems = [...items]
-    newItems.splice(index, 1)
-    setItems(newItems)
-  }
-
+    const newItems = [...items];
+    newItems.splice(index, 1);
+    setItems(newItems);
+  };
 
   return (
     <>
@@ -109,6 +105,7 @@ const DynamicForm = (props) => {
                       updateItems(index, "produk", e.target.value)
                     }
                     value={item.produk}
+                    required
                   >
                     <option value="" disabled>
                       Select
@@ -126,8 +123,11 @@ const DynamicForm = (props) => {
                     name="tipe"
                     className="w-36"
                     onChange={(e) => updateItems(index, "tipe", e.target.value)}
-                    value={item.tipe}
+                    required
                   >
+                    <option value="" disabled>
+                      Select
+                    </option>
                     <option value="">Produk Stok</option>
                   </select>
                 </td>
@@ -139,8 +139,11 @@ const DynamicForm = (props) => {
                       updateItems(index, "gudang", e.target.value)
                     }
                     value={item.gudang}
+                    required
                   >
-                  <option value="" disabled>Select</option>
+                    <option value="" disabled>
+                      Select
+                    </option>
                     <option value="Gudang Kanwil Maluku Malut, Kompleks Pergudangan Nusaniwe">
                       Gudang Kanwil Maluku Malut, Kompleks Pergudangan Nusaniwe
                     </option>
@@ -154,6 +157,7 @@ const DynamicForm = (props) => {
                 </td>
                 <td>
                   <Input
+                    type="number"
                     onChange={(e) =>
                       updateItems(index, "jumlah_pesanan", e.target.value)
                     }
@@ -164,8 +168,8 @@ const DynamicForm = (props) => {
                   <Input
                     type="text"
                     value={item.kuantitas}
-                    readOnly
                     id={`kuantitas-${index}`}
+                    readOnly={true}
                   />
                 </td>
                 <td>
@@ -178,17 +182,16 @@ const DynamicForm = (props) => {
                   />
                 </td>
                 <td>
-                  <input
+                  <Input
                     type="text"
-                    disabled
                     className="border bg-white"
                     id={`subtotal-${index}`}
-                    readOnly
+                    readOnly={true}
                   />
                 </td>
                 <td>
                   <Button type="button" onClick={handleDeleteItem}>
-                    <Trash/>
+                    <Trash />
                   </Button>
                 </td>
               </tr>
@@ -198,7 +201,10 @@ const DynamicForm = (props) => {
         <a onClick={handleAddItem} className="cursor-pointer">
           Tambah Produk
         </a>
-        <Button type="submit" className="border rounded-md p-2 bg-blue-500 text-white mx-2" >
+        <Button
+          type="submit"
+          className="border rounded-md p-2 bg-blue-500 text-white mx-2"
+        >
           Simpan Order
         </Button>
       </div>

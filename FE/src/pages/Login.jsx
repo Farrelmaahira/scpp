@@ -23,7 +23,7 @@ function Login() {
       password,
     };
     const response = await axios.post(
-      "http://localhost:8000/api/login",
+      "http://localhost:8000/api/v1/login",
       payload
     );
     if (response.data.status == "success") {

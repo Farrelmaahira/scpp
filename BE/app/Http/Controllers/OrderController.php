@@ -14,12 +14,11 @@ class OrderController extends Controller
         try {
             $order = OrderService::getData();
             return response()->json([
-                'status' => 'success',
-                'data' => OrderResource::collection($order)
+                'count' => $order['count'],
+                'data' => OrderResource::collection($order['data'])
             ]);
         } catch (ErrorException $e) {
             return response()->json([
-                'status' => 'invalid',
                 'message' => $e->getMessage()
             ], $e->getCode());
         }
@@ -33,7 +32,6 @@ class OrderController extends Controller
         try {
             $order = OrderService::storeData($request->all());
             return response()->json([
-                'status' => 'success',
                 "data" => new OrderResource($order)
             ]);
         } catch (ErrorException $e) {
@@ -69,7 +67,6 @@ class OrderController extends Controller
         try {
             $data = OrderService::editData($request->all(), $id);
             return response()->json([
-                'status' => 'success',
                 'data' => $data
             ]);
         } catch (ErrorException $e) {

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('kuantitas');
             $table->integer('harga');
             $table->integer('subtotal');
-            $table->foreignId('order_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignUuid('order_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

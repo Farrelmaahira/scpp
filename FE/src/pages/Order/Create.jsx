@@ -2,34 +2,55 @@ import Input from "../../components/Input";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import Label from "../../components/Label";
 import DynamicForm from "../../components/fragments/DynamicForm";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const Create = () => {
   const [itemDetail, setItemDetail] = useState([]);
-  const [kios, setKios] = useState('');
-  const [transaksi, setTransaksi] = useState('PSO');
-  const [penjualan, setPenjualan] = useState('KPSH-BM');
-  const [tanggal, setTanggal] = useState('');
-  const [pembayaran, setPembayaran] = useState('');
+  const [kios, setKios] = useState("");
+  const [mitra, setMitra] = useState([]);
+  const [transaksi, setTransaksi] = useState("PSO");
+  const [penjualan, setPenjualan] = useState("KPSH-BM");
+  const [tanggal, setTanggal] = useState("");
+  const [pembayaran, setPembayaran] = useState("");
   const [rekening, setRekening] = useState(0);
-  const url = import.meta.env.VITE_BASE_APP_URL
+  const url = import.meta.env.VITE_BASE_APP_URL;
   const navigate = useNavigate();
+  const token = sessionStorage.getItem("token");
+
+  const fetchMitra = async () => {
+    const data = await axios.get("http://localhost:8000/api/v1/mitra", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setMitra(data.data);
+  };
+
+  useEffect(() => {
+    fetchMitra();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('submitted')
     const payload = {
-      mitra_id : kios,
-      jenis_transaksi : transaksi,
-      jenis_penjualan : penjualan,
-      tanggal_order : tanggal,
-      cara_pembayaran : pembayaran,
-      rekening_tujuan : rekening,
-      detail_order : itemDetail
-    }
-    const data = await axios.post(`${url}/api/order`,payload );
-    if(data.data.status == 'success') {
-      return navigate('/order')
+      mitra_id: kios,
+      jenis_transaksi: transaksi,
+      jenis_penjualan: penjualan,
+      tanggal_order: tanggal,
+      cara_pembayaran: pembayaran,
+      rekening_tujuan: rekening,
+      detail_order: itemDetail,
+    };
+    const data = await axios.post(`${url}/api/v1/order`, payload, {
+      headers : {
+        Authorization : `Bearer ${token}`
+      }
+    });
+    console.log(data)
+    if (data.data.status == "success") {
+      return navigate("/dashboard");
     }
   };
 
@@ -54,13 +75,12 @@ const Create = () => {
                         <Label className="p-2" name="pelanggan">
                           Pelanggan
                         </Label>
-                        <Input
-                          type="text"
-                          className="border rounded-sm p-1 w-3/4"
-                          placeholder="John Doe"
-                          id="pelanggan"
-                          onChange={e => {setKios(e.target.value)} }
-                        />
+                        <select name="mitra" id="" defaultValue={'select'} className="border rounded-sm p-1 w-3/4" onChange={(e) => {setKios(e.target.value)}}>
+                          <option value="select" selected disabled>Select</option>
+                          {mitra?.map((item, index) => {
+                            return <option value={item.id} key={index}>{item.id} - {item.nama_kios}</option>;
+                          })}
+                        </select>
                       </li>
                       <li className=" flex flex-row justify-around my-2">
                         <Label className=" p-2" name="jenis_transaksi">
@@ -70,9 +90,15 @@ const Create = () => {
                           name="jenis_transaksi"
                           id="jenis_transaksi"
                           className="rounded-sm p-1 w-3/4 border"
-                          onChange={e => {setTransaksi(e.target.value)}}
+                          onChange={(e) => {
+                            setTransaksi(e.target.value);
+                          }}
+                          required
+                          defaultValue={'select'}
                         >
-                          <option value="" disabled selected>Select</option>
+                          <option value="select" disabled selected>
+                            Select
+                          </option>
                           <option value="PSO">PSO</option>
                         </select>
                       </li>
@@ -84,8 +110,11 @@ const Create = () => {
                           name="jenis_penjualan"
                           id="jenis_penjualan"
                           className="rounded-sm border w-3/4"
+                          required
                         >
-                          <option value="" disabled selected>Select</option>
+                          <option value="" disabled selected>
+                            Select
+                          </option>
                           <option value="KPSH - BM">KPSH - BM</option>
                         </select>
                       </li>
@@ -95,7 +124,9 @@ const Create = () => {
                           type="date"
                           className="border rounded-sm p-1 w-3/4"
                           placeholder="John Doe"
-                          onChange={e => {setTanggal(e.target.value)} }
+                          onChange={(e) => {
+                            setTanggal(e.target.value);
+                          }}
                         />
                       </li>
                       <li className=" flex flex-row justify-around my-2">
@@ -106,9 +137,14 @@ const Create = () => {
                           name="cara_pembayaran"
                           id="cara_pembayaran"
                           className="border rounded-sm p-1 w-3/4"
-                          onChange={e => {setPembayaran(e.target.value)}}
+                          onChange={(e) => {
+                            setPembayaran(e.target.value);
+                          }}
+                          required
                         >
-                          <option value=""  disabled selected>Select</option>
+                          <option value="" disabled selected>
+                            Select
+                          </option>
                           <option value="Transfer">Transfer</option>
                         </select>
                       </li>
@@ -117,9 +153,14 @@ const Create = () => {
                         <select
                           name="rekening"
                           className="border rounded-sm p-1 w-3/4"
-                          onChange={e => {setRekening(e.target.value)}}
+                          onChange={(e) => {
+                            setRekening(e.target.value);
+                          }}
+                          required
                         >
-                          <option value="" disabled selected>Select</option>
+                          <option value="" disabled selected>
+                            Select
+                          </option>
                           <option value="1427318545">
                             BNI HP - 1427318545
                           </option>

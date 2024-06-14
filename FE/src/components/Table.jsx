@@ -3,12 +3,10 @@ import Modal from "./Modal";
 import { useEffect, useState } from "react";
 import axios from "axios";
 const Table = (props) => {
-  const { data } = props;
+  const { data, onDelete } = props;
   const [ open, setOpen ] = useState(false) 
-  const [list, setList] = useState([])
   const [id, setId] = useState()
   const url = import.meta.env.VITE_BASE_APP_URL
-
   const handleOpen = (id) => {
     setId(id)
     setOpen(true)
@@ -19,14 +17,9 @@ const Table = (props) => {
   }
 
   const handleDelete = async () => {
-    const fetchAPI = await axios.delete(`http://localhost:8000/api/order/${id}`)
-    console.log(id)
-    console.log(fetchAPI) 
+    onDelete(id)
   }
 
-  useEffect(()=> {
-    setList(data)
-  }, [])
   return (
     <>
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 mx-auto">

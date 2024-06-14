@@ -12,15 +12,12 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         try {
-
             $user = AuthService::signIn($request->all());
             return response()->json([
                 'status' => 'success',
                 'token' => $user
             ]);
-
         } catch (ErrorException $e) {
-
             if ($e->type == 'assoc') {
                 return response()->json([
                     'message' => json_decode($e->getMessage())
@@ -38,6 +35,7 @@ class AuthController extends Controller
     {
         $request->user()->currentAccessToken()->delete();
         return response()->json([
+            'status' => 'success',
             'message' => 'Token has been deleted'
         ]);
     }

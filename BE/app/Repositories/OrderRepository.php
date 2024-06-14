@@ -16,9 +16,10 @@ class OrderRepository
 
     public static function create($payload)
     {
+        $invoiceAddress = rand(1000, 9999);
         $data = Order::create([
             'mitra_id' => $payload['mitra_id'],
-            'invoice_address' => '1234',
+            'invoice_address' => $invoiceAddress,
             'jenis_transaksi' => $payload['jenis_transaksi'],
             'jenis_penjualan' => $payload['jenis_penjualan'],
             'tanggal_order' => $payload['tanggal_order'],

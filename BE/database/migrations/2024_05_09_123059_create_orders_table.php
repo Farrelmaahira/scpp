@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('mitra_id')->constrained();
-            $table->string('invoice_address');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('mitra_id')->constrained('mitras', 'id')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('invoice_address');
             $table->enum('jenis_transaksi', ['PSO']);
             $table->string('jenis_penjualan');
             $table->date('tanggal_order');
