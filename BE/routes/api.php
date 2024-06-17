@@ -23,16 +23,17 @@ Route::middleware('auth:sanctum')->get('/', function (Request $request) {
     ]);
 });
 
-Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
+Route::prefix('v1')->group(function () {
     Route::controller(OrderController::class)->group(function () {
         Route::get('/orders', 'index');
-        Route::post('/order', 'store');
-        Route::delete('/order/{id}', 'destroy');
+        Route::post('/order', 'store')->middleware('auth:sanctum');
+        Route::delete('/order/{id}', 'destroy')->middleware('auth:sanctum');
         Route::get('/order/{id}', 'show');
     });
 
     Route::controller(MitraController::class)->group(function () {
         Route::get('/mitra', 'getData');
+        Route::get('/mitra/{id}', 'getById');
     });
 });
 

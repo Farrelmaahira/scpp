@@ -22,6 +22,7 @@ class MitraSeeder extends Seeder
                 'id' => $trimUUID[0],
                 'nama_kios' => 'KIOS ' . $i,
                 'nomor_rekening' => '1234567890',
+                'nomor_telfon' => '0812345678',
                 'alamat' => 'Jalan Merdeka Barat',
                 'npwp' => '1234567890'
             ]);

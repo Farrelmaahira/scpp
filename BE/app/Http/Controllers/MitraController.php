@@ -12,4 +12,10 @@ class MitraController extends Controller
         $mitra = Mitra::all();
         return response()->json($mitra);
     }
+
+    public function getById($id)
+    {
+        $mitra = Mitra::find($id);
+        return response()->json($mitra);
+    }
 }

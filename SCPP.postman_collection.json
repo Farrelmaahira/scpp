@@ -1,0 +1,838 @@
+{
+	"info": {
+		"_postman_id": "7d7f867e-ff14-4a95-b9f3-9eca4abf8ac0",
+		"name": "SCPP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24198031"
+	},
+	"item": [
+		{
+			"name": "AUTH",
+			"item": [
+				{
+					"name": "LOGIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"passadmin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "LOGIN",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"passadmin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Jun 2024 13:36:08 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Jun 2024 13:36:08 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.10"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type, Authorization"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"token\": \"11|WDxoq3LCSOo5hicQJrDgIxkf1tUXwimvyCnxRbwIfa2fef52\"\n}"
+						},
+						{
+							"name": "USERNAME NOT EXIST",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\" : \"admin123\",\r\n    \"password\" : \"passadmin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Jun 2024 13:36:32 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Jun 2024 13:36:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.10"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type, Authorization"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Username does not exist\"\n}"
+						},
+						{
+							"name": "ERROR BODY",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n    \"password\" : \"passadmin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Jun 2024 13:42:49 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Jun 2024 13:42:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.10"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type, Authorization"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": {\n        \"username\": [\n            \"The username field is required.\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "LOGOUT",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "LOGOUT",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/logout",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"logout"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Jun 2024 13:51:16 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Jun 2024 13:51:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.10"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type, Authorization"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Token has been deleted\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "ORDER_PENJUALAN",
+			"item": [
+				{
+					"name": "GET",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/orders",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "GET",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/orders",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"orders"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 20 May 2024 14:13:12 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 20 May 2024 14:13:12 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.10"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type, Authorization"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"mitra_id\": 1,\n            \"invoice_address\": \"1234\",\n            \"jenis_transaksi\": \"PSO\",\n            \"jenis_penjualan\": \"KPSH - BM\",\n            \"tanggal_order\": \"2024-05-06\",\n            \"pembayaran\": \"Transfer\",\n            \"rekening_tujuan\": 12345678,\n            \"total\": 40000,\n            \"order_detail\": [\n                {\n                    \"id\": 1,\n                    \"produk\": \"BERAS 5KG\",\n                    \"tipe\": \"Produk Stok\",\n                    \"gudang\": \"Kanwil Maluku\",\n                    \"jumlah_pesanan\": 2,\n                    \"kuantitas\": \"5kg\",\n                    \"harga\": 10000,\n                    \"subtotal\": 20000,\n                    \"order_id\": 1,\n                    \"created_at\": \"2024-05-20T14:08:18.000000Z\",\n                    \"updated_at\": \"2024-05-20T14:08:18.000000Z\"\n                },\n                {\n                    \"id\": 2,\n                    \"produk\": \"BERAS 5KG\",\n                    \"tipe\": \"Produk Stok\",\n                    \"gudang\": \"Kanwil Maluku\",\n                    \"jumlah_pesanan\": 2,\n                    \"kuantitas\": \"5kg\",\n                    \"harga\": 10000,\n                    \"subtotal\": 20000,\n                    \"order_id\": 1,\n                    \"created_at\": \"2024-05-20T14:08:18.000000Z\",\n                    \"updated_at\": \"2024-05-20T14:08:18.000000Z\"\n                }\n            ],\n            \"mitra\": {\n                \"id\": 1,\n                \"nama_kios\": \"KIOS 1\",\n                \"nomor_rekening\": \"1234567890\",\n                \"alamat\": \"Jalan Merdeka Barat\",\n                \"npwp\": \"1234567890\",\n                \"created_at\": null,\n                \"updated_at\": null\n            }\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/order/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"order",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "DELETE",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/order/12",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"order",
+										"12"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Jun 2024 13:50:25 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Jun 2024 13:50:25 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.10"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "57"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type, Authorization"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Order has been deleted\"\n}"
+						}
+					]
+				},
+				{
+					"name": "GET BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/order/02410232-0249-4b8d-9bae-10ea1ee408a7",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"order",
+								"02410232-0249-4b8d-9bae-10ea1ee408a7"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "GET BY ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/order/10",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"order",
+										"10"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Jun 2024 13:49:32 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Jun 2024 13:49:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.10"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type, Authorization"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 10,\n        \"mitra_id\": 2,\n        \"invoice_address\": \"1234\",\n        \"jenis_transaksi\": \"PSO\",\n        \"jenis_penjualan\": \"KPSH-BM\",\n        \"tanggal_order\": \"2024-05-23\",\n        \"pembayaran\": \"Transfer\",\n        \"rekening_tujuan\": 1427318545,\n        \"total\": 10000,\n        \"order_detail\": [\n            {\n                \"id\": 12,\n                \"produk\": \"Beras Medium Vietnam 5% Logo SPGP 5kg PSO LN\",\n                \"tipe\": \"Produk Stok\",\n                \"gudang\": \"Gudang Kanwil Maluku Malut, Kompleks Pergudangan Nusaniwe\",\n                \"jumlah_pesanan\": 1,\n                \"kuantitas\": \"5kg\",\n                \"harga\": 10000,\n                \"subtotal\": 10000,\n                \"order_id\": 10,\n                \"created_at\": \"2024-05-23T13:18:03.000000Z\",\n                \"updated_at\": \"2024-05-23T13:18:03.000000Z\"\n            }\n        ],\n        \"mitra\": {\n            \"id\": 2,\n            \"nama_kios\": \"KIOS 2\",\n            \"nomor_rekening\": \"1234567890\",\n            \"alamat\": \"Jalan Merdeka Barat\",\n            \"npwp\": \"1234567890\",\n            \"created_at\": null,\n            \"updated_at\": null\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "POST",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mitra_id\" : \"2e40194d\",\r\n    \"jenis_transaksi\" : \"PSO\",\r\n    \"jenis_penjualan\" : \"KPSH - BM\",\r\n    \"cara_pembayaran\" : \"Transfer\",\r\n    \"tanggal_order\" : \"2024-05-06\",\r\n    \"rekening_tujuan\" : 12345678,\r\n    \"detail_order\" : [\r\n        {\r\n            \"produk\" : \"BERAS 5KG\",\r\n            \"tipe\" : \"Produk Stok\",\r\n            \"gudang\" : \"Kanwil Maluku\",\r\n            \"jumlah_pesanan\" : \"2\",\r\n            \"kuantitas\" : \"5kg\",\r\n            \"harga\" : 10000,\r\n            \"subtotal\" : 20000\r\n        },\r\n         {\r\n            \"produk\" : \"BERAS 5KG\",\r\n            \"tipe\" : \"Produk Stok\",\r\n            \"gudang\" : \"Kanwil Maluku\",\r\n            \"jumlah_pesanan\" : \"2\",\r\n            \"kuantitas\" : \"5kg\",\r\n            \"harga\" : 10000,\r\n            \"subtotal\" : 20000\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/order",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"order"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "POST",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mitra_id\" : 1,\r\n    \"jenis_transaksi\" : \"PSO\",\r\n    \"jenis_penjualan\" : \"KPSH - BM\",\r\n    \"cara_pembayaran\" : \"Transfer\",\r\n    \"tanggal_order\" : \"2024-05-06\",\r\n    \"rekening_tujuan\" : 12345678,\r\n    \"detail_order\" : [\r\n        {\r\n            \"produk\" : \"BERAS 5KG\",\r\n            \"tipe\" : \"Produk Stok\",\r\n            \"gudang\" : \"Kanwil Maluku\",\r\n            \"jumlah_pesanan\" : \"2\",\r\n            \"kuantitas\" : \"5kg\",\r\n            \"harga\" : 10000,\r\n            \"subtotal\" : 20000\r\n        },\r\n         {\r\n            \"produk\" : \"BERAS 5KG\",\r\n            \"tipe\" : \"Produk Stok\",\r\n            \"gudang\" : \"Kanwil Maluku\",\r\n            \"jumlah_pesanan\" : \"2\",\r\n            \"kuantitas\" : \"5kg\",\r\n            \"harga\" : 10000,\r\n            \"subtotal\" : 20000\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/order",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"order"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Jun 2024 13:49:59 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Jun 2024 13:49:59 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.1.10"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE, OPTIONS"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type, Authorization"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"id\": 12,\n        \"mitra_id\": 1,\n        \"invoice_address\": \"1234\",\n        \"jenis_transaksi\": \"PSO\",\n        \"jenis_penjualan\": \"KPSH - BM\",\n        \"tanggal_order\": \"2024-05-06\",\n        \"pembayaran\": \"Transfer\",\n        \"rekening_tujuan\": 12345678,\n        \"total\": 40000,\n        \"order_detail\": [\n            {\n                \"id\": 14,\n                \"produk\": \"BERAS 5KG\",\n                \"tipe\": \"Produk Stok\",\n                \"gudang\": \"Kanwil Maluku\",\n                \"jumlah_pesanan\": 2,\n                \"kuantitas\": \"5kg\",\n                \"harga\": 10000,\n                \"subtotal\": 20000,\n                \"order_id\": 12,\n                \"created_at\": \"2024-06-12T13:49:59.000000Z\",\n                \"updated_at\": \"2024-06-12T13:49:59.000000Z\"\n            },\n            {\n                \"id\": 15,\n                \"produk\": \"BERAS 5KG\",\n                \"tipe\": \"Produk Stok\",\n                \"gudang\": \"Kanwil Maluku\",\n                \"jumlah_pesanan\": 2,\n                \"kuantitas\": \"5kg\",\n                \"harga\": 10000,\n                \"subtotal\": 20000,\n                \"order_id\": 12,\n                \"created_at\": \"2024-06-12T13:49:59.000000Z\",\n                \"updated_at\": \"2024-06-12T13:49:59.000000Z\"\n            }\n        ],\n        \"mitra\": {\n            \"id\": 1,\n            \"nama_kios\": \"KIOS 1\",\n            \"nomor_rekening\": \"1234567890\",\n            \"alamat\": \"Jalan Merdeka Barat\",\n            \"npwp\": \"1234567890\",\n            \"created_at\": null,\n            \"updated_at\": null\n        }\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "MITRA",
+			"item": [
+				{
+					"name": "GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/mitra",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"mitra"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "1|p10VQpOgsVBBY0a61cxaSB6cdXqtmsWmzAXYsDFB4ac98a18",
+			"type": "string"
+		}
+	]
+}

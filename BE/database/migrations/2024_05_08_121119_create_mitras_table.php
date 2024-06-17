@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('mitras', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('nama_kios');
+            $table->string('nomor_telfon');
             $table->string('nomor_rekening');
             $table->string('alamat');
             $table->string('npwp');
