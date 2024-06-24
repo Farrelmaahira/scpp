@@ -35,30 +35,26 @@ class OrderService extends Controller
             'tanggal_order' => 'required|date',
             'cara_pembayaran' => 'required|string',
             'rekening_tujuan' => 'required|integer',
-            'detail_order' => 'array|required',
-            'detail_order.*.produk' => 'required|string',
-            'detail_order.*.tipe' => 'required|string',
-            'detail_order.*.gudang' => 'required|string',
-            'detail_order.*.jumlah_pesanan' => 'required|integer',
-            'detail_order.*.kuantitas' => 'required|string',
-            'detail_order.*.harga' => 'required|integer',
-            'detail_order.*.subtotal' => 'required|integer',
+            'detail_order' => 'required',
+            'detail_order.produk' => 'required|string',
+            'detail_order.tipe' => 'required|string',
+            'detail_order.gudang' => 'required|string',
+            'detail_order.jumlah_pesanan' => 'required|integer',
+            'detail_order.kuantitas' => 'required|integer',
+            'detail_order.harga' => 'required|integer',
+            'detail_order.subtotal' => 'required|integer',
         ]);
 
         if ($vld->fails()) {
             throw new ErrorException('assoc', $vld->messages(), 400);
         }
-        
+
         $value = collect($body);
         $orderItem = collect($body['detail_order']);
-        $total = 0;
-
-        foreach ($orderItem as $item) {
-            $total += $item['subtotal'];
-        }
+       
         $invoiceAddress = rand(1000, 9999);
         $value->put('invoice_address', $invoiceAddress);
-        $value->put('total', $total);
+        $value->put('total', $orderItem['subtotal']);
         $order = OrderRepository::create($value);
         $orderDetailPayload = [
             'order_id' => $order->id,

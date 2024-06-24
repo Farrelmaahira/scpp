@@ -15,15 +15,17 @@ class OrderDetailRepository
 
     public static function create($payload)
     {
-        $orderId = $payload['order_id'];
-        $orderItem = collect($payload['detail_order']);
-        $modifiedOrderItem = $orderItem->map(function($item) use ($orderId){
-            $item['order_id'] = $orderId;
-            return $item;
-        });
-        $modifiedOrderItem->map(function($item){
-            OrderDetail::create($item);
-        });
+        $items = $payload['detail_order'];
+        OrderDetail::create([
+            'order_id' => $payload['order_id'],
+            'produk' => $items['produk'],
+            'tipe' => $items['tipe'],
+            'gudang' => $items['gudang'],
+            'jumlah_pesanan' => $items['jumlah_pesanan'],
+            'kuantitas' => $items['kuantitas'],
+            'harga' => $items['harga'],
+            'subtotal' => $items['subtotal']
+        ]);
         return true;
     }
     

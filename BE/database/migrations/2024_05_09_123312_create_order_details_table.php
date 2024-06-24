@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('tipe');
             $table->string('gudang');
             $table->integer('jumlah_pesanan');
-            $table->string('kuantitas');
+            $table->integer('kuantitas');
             $table->integer('harga');
             $table->integer('subtotal');
             $table->foreignUuid('order_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
